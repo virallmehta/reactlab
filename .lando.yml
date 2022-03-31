@@ -1,0 +1,35 @@
+name: reactlab
+recipe: lemp
+config:
+  php: '7.4'
+  webroot: .
+  via: 'nginx'
+  database: mariadb
+  ssl: true
+proxy:
+  appserver_nginx:
+    - reactlab.lndo.site
+services:
+  appserver:
+    type: php
+    build_as_root:
+      - curl -sL https://deb.nodesource.com/setup_16.x | bash -
+      - apt-get install -y nodejs
+  node:
+    type: node:16
+    # overrides:
+    #   ports:
+    #     - 8082:8080
+tooling:
+  npm:
+    service: node
+  npx:
+    service: node
+  node:
+    service: node
+  gulp:
+    service: node
+  yarn:
+    service: node
+  servor:
+    service: node
